@@ -1,0 +1,26 @@
+<div class="search-container">
+  <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+    <input
+      formControlName="query"
+      placeholder="Search patients by name"
+      type="text"
+    />
+    <button type="submit" [disabled]="searchForm.invalid || isLoading">
+      Search
+    </button>
+  </form>
+
+  <div *ngIf="isLoading">Loading...</div>
+
+  <div *ngIf="!isLoading && patients.length > 0">
+    <ul>
+      <li *ngFor="let patient of patients">
+        {{ patient.name }} - {{ patient.birthdate }} - {{ patient.gender }} -
+        {{ patient.phone }}
+        <button (click)="onUpdate(patient)">Update</button>
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="!isLoading && patients.length === 0">No patients found.</div>
+</div>

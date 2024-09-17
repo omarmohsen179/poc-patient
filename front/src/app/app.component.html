@@ -1,0 +1,17 @@
+<div class="app-container">
+  <header>
+    <nav>
+      <a routerLink="/patient-create" routerLinkActive="active"
+        >Create Patient</a
+      >
+      <a routerLink="/patient-search" routerLinkActive="active"
+        >Search Patients</a
+      >
+    </nav>
+    <h1>{{ title }}</h1>
+  </header>
+
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+</div>

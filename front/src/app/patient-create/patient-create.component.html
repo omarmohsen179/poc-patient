@@ -1,0 +1,57 @@
+<!-- src/app/patient-create.component.html -->
+<div class="patient-create-container">
+  <h2>{{ patientId ? "Update Patient" : "Create Patient" }}</h2>
+  <form [formGroup]="patientForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input id="name" formControlName="name" />
+      <div
+        *ngIf="
+          patientForm.get('name')?.invalid && patientForm.get('name')?.touched
+        "
+      >
+        <small class="error">Name is required.</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="birthdate">Birthdate</label>
+      <input id="birthdate" type="date" formControlName="birthdate" />
+      <div
+        *ngIf="
+          patientForm.get('birthdate')?.invalid &&
+          patientForm.get('birthdate')?.touched
+        "
+      >
+        <small class="error">Birthdate is required.</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="gender">Gender</label>
+      <select id="gender" formControlName="gender">
+        <option value="">Select Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+      <div
+        *ngIf="
+          patientForm.get('gender')?.invalid &&
+          patientForm.get('gender')?.touched
+        "
+      >
+        <small class="error">Gender is required.</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="phone">Phone</label>
+      <input id="phone" formControlName="phone" />
+      <div
+        *ngIf="
+          patientForm.get('phone')?.invalid && patientForm.get('phone')?.touched
+        "
+      >
+        <small class="error">Phone number is required and must be valid.</small>
+      </div>
+    </div>
+    <button type="submit" [disabled]="patientForm.invalid">Submit</button>
+  </form>
+</div>

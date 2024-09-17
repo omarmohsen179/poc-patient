@@ -1,0 +1,11 @@
+spring:
+  data:
+    elasticsearch:
+      client:
+        reactive:
+          endpoints: http://elasticsearch:9200
+      repositories:
+        enabled: true
+
+server:
+  port: 8082

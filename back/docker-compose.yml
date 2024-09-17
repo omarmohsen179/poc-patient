@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.13.4
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+
+  data-service:
+    build:
+      context: ./data-service
+      dockerfile: Dockerfile
+    container_name: data-service
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - ELASTICSEARCH_HOST=elasticsearch
+    depends_on:
+      - elasticsearch
+      - search-service
+
+  search-service:
+    build:
+      context: ./search-service
+      dockerfile: Dockerfile
+    container_name: search-service
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - ELASTICSEARCH_HOST=elasticsearch
+    depends_on:
+      - elasticsearch
+
+volumes:
+  es_data:
+    driver: local
